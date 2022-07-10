@@ -1,8 +1,12 @@
 import React, { createContext } from "react";
 
 export const ShoppingCartContext = createContext({
-    addToShoppingCart: () => {},
-    removeFromShoppingCart: () => {},
+    addToShoppingCart: () => {
+        // Intentionally blank
+    },
+    removeFromShoppingCart: () => {
+        // Intentionally blank
+    },
 });
 
 export const ShoppingCartContextProvider = ({children}) => {

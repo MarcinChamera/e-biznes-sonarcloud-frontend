@@ -28,8 +28,7 @@ const Payment = () => {
 
     function pay() {
         alert("Płatność udana!")
-        return axios.post("/order", {paymentNumber}).then((res) => {
-        });
+        return axios.post("/order", {paymentNumber});
     }
 
     return (
