@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import React, { useState } from "react"
 import { Typography, Button, TextField, Grid } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
@@ -13,9 +13,10 @@ const defaultValues = {
 
 const Payment = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const [ amountToPay ] = useState(location.state.amountToPay);
-    const [ paymentNumber ] = useState(location.state.paymentNumber);
+    const [ amountToPay ] = useState(location.state?.amountToPay);
+    const [ paymentNumber ] = useState(location.state?.paymentNumber);
     const [formValues, setFormValues] = useState(defaultValues);
 
     const handleInputChange = (e) => {
@@ -26,13 +27,17 @@ const Payment = () => {
         });
       };
 
-    function pay() {
+    const pay = (event) => {
         alert("Płatność udana!")
-        return axios.post("/order", {paymentNumber});
+        axios.post("/order", {paymentNumber}).then(() => {
+            window.localStorage.clear();
+        });
+        event.preventDefault();
+        navigate("/products");
     }
 
     return (
-        <form onSubmit={() => pay()}>
+        <form onSubmit={pay}>
             <Grid container alignItems="center" justify="center" direction="column" spacing={2}>
                 <Typography variant="h4" marginTop={15}>
                     Do zapłacenia: {amountToPay} PLN

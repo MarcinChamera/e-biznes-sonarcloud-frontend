@@ -35,7 +35,10 @@ const ShoppingCart = () => {
  
     function buyShoppingCartProducts() {
         const amountToPay = getTotalPrice(shoppingCartProducts);
-        const paymentNumber = Math.floor(Math.random() * 1000000)
+        const crypto = window.crypto;
+        let array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        const paymentNumber = array[0];
         return axios.post("/payment", { amountToPay, paymentNumber }).then(() => {
             navigate("/payment", { state : {
                 amountToPay: amountToPay,
